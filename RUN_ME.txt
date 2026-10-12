@@ -1,0 +1,8 @@
+HOW TO RUN (VS Code)
+1. Extract the zip and open the folder in VS Code
+2. Terminal:  pip install -r requirements.txt
+3. Terminal:  python app.py
+4. Open in browser:  http://127.0.0.1:5000
+
+Re-train and regenerate the charts (optional):  python train.py
+If the saved model gives a version error, app.py trains it again automatically (about 2 minutes).

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>InboxGuard - spam checker</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap top-row">
+      <div class="brand">
+        <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
+          <rect x="3" y="7" width="28" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="2"/>
+          <path d="M4 9l13 10L30 9" fill="none" stroke="currentColor" stroke-width="2"/>
+          <circle cx="26" cy="9" r="5" fill="#C8553D"/>
+        </svg>
+        <span>InboxGuard</span>
+      </div>
+      <nav class="tabs" role="tablist">
+        <button class="tab active" data-tab="scan" role="tab">Scan a message</button>
+        <button class="tab" data-tab="results" role="tab">Model results</button>
+        <button class="tab" data-tab="batch" role="tab">Scan a CSV</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- scan -->
+    <section id="scan" class="panel active">
+      <h1>Is this message safe to open?</h1>
+      <p class="lead">Paste an email or SMS. InboxGuard gives a verdict and shows the words that decided it.</p>
+
+      <div class="examples">
+        <span>Try:</span>
+        <button class="chip" data-text="WINNER!! You have been selected for a 1000 cash prize. Call 09061701461 now to claim.">Prize scam</button>
+        <button class="chip" data-text="Free entry in our weekly competition! Text WIN to 80086 now to claim your reward. www.win-big.com">Free offer</button>
+        <button class="chip" data-text="Hey, are we still meeting for lunch tomorrow? Tell me what time suits you.">Lunch plan</button>
+        <button class="chip" data-text="Please send the report before the meeting this evening. Thanks.">Work note</button>
+      </div>
+
+      <textarea id="msg" rows="6" placeholder="Paste the message here"></textarea>
+      <div class="actions">
+        <button id="scanBtn" class="primary">Scan message</button>
+        <button id="clearBtn" class="ghost">Clear</button>
+        <span id="scanErr" class="err" role="alert"></span>
+      </div>
+
+      <div id="result" class="result" hidden>
+        <div class="verdict">
+          <div id="stamp" class="stamp"></div>
+          <div class="meter-box">
+            <div class="meter-label"><span id="probText"></span></div>
+            <div class="meter"><div id="meterFill" class="fill"></div><div id="meterThr" class="thr"></div></div>
+            <div class="meter-scale"><span>looks normal</span><span id="thrText"></span><span>looks like spam</span></div>
+          </div>
+        </div>
+        <div class="two">
+          <div>
+            <h2>Words behind the verdict</h2>
+            <ul id="signals" class="signals"></ul>
+            <p id="noSignals" class="muted" hidden>No known words from the training data were found in this message.</p>
+          </div>
+          <div>
+            <h2>Message facts</h2>
+            <dl id="facts" class="facts"></dl>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- results -->
+    <section id="results" class="panel">
+      <h1>How well does it work?</h1>
+      <p class="lead" id="resultsLead">Loading results...</p>
+      <div id="dataFacts" class="datafacts"></div>
+      <div class="table-wrap"><table id="modelTable" class="table"></table></div>
+      <p class="muted">The decision threshold of each model was tuned on the training data so that at least 99% of messages it flags are really spam. Scores below come from a test set the models never saw.</p>
+      <div class="figs" id="figs"></div>
+    </section>
+
+    <!-- batch -->
+    <section id="batch" class="panel">
+      <h1>Scan many messages</h1>
+      <p class="lead">Upload a CSV that has a column named <code>text</code>. Up to 5,000 rows are scanned.</p>
+      <div class="actions">
+        <input type="file" id="csvFile" accept=".csv">
+        <button id="batchBtn" class="primary">Scan file</button>
+        <button id="dlBtn" class="ghost" hidden>Download results</button>
+        <span id="batchErr" class="err" role="alert"></span>
+      </div>
+      <div id="batchSummary" class="datafacts"></div>
+      <div class="table-wrap"><table id="batchTable" class="table"></table></div>
+    </section>
+  </main>
+
+  <footer class="wrap foot">
+    Model: {{ model_name }} &middot; spam threshold {{ threshold }} &middot; trained on the SMS Spam Collection
+  </footer>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

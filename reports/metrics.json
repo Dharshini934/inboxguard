@@ -1,0 +1,68 @@
+{
+  "dataset": {
+    "messages": 5169,
+    "spam": 653,
+    "ham": 4516,
+    "duplicates_removed": 403,
+    "train": 3876,
+    "test": 1293
+  },
+  "min_precision_target": 0.99,
+  "best_model": "SVM",
+  "models": [
+    {
+      "model": "Naive Bayes",
+      "threshold": 0.965,
+      "cv_f1": 0.9567053854,
+      "cv_ap": 0.9873370986,
+      "roc_auc": 0.9788587871,
+      "f1_at_0.5": 0.921630094,
+      "accuracy": 0.9806651199,
+      "precision": 0.9726027397,
+      "recall": 0.8711656442,
+      "f1": 0.9190938511,
+      "false_positives": 4,
+      "false_negatives": 21,
+      "tn": 1126,
+      "fp": 4,
+      "fn": 21,
+      "tp": 142
+    },
+    {
+      "model": "Logistic Regression",
+      "threshold": 0.8642,
+      "cv_f1": 0.9353448276,
+      "cv_ap": 0.987409066,
+      "roc_auc": 0.9919105272,
+      "f1_at_0.5": 0.9423076923,
+      "accuracy": 0.9829853055,
+      "precision": 1.0,
+      "recall": 0.8650306748,
+      "f1": 0.9276315789,
+      "false_positives": 0,
+      "false_negatives": 22,
+      "tn": 1130,
+      "fp": 0,
+      "fn": 22,
+      "tp": 141
+    },
+    {
+      "model": "SVM",
+      "threshold": 0.7005,
+      "cv_f1": 0.9544973545,
+      "cv_ap": 0.9878740204,
+      "roc_auc": 0.9914001846,
+      "f1_at_0.5": 0.9389067524,
+      "accuracy": 0.9829853055,
+      "precision": 0.993006993,
+      "recall": 0.8711656442,
+      "f1": 0.9281045752,
+      "false_positives": 1,
+      "false_negatives": 21,
+      "tn": 1129,
+      "fp": 1,
+      "fn": 21,
+      "tp": 142
+    }
+  ]
+}
